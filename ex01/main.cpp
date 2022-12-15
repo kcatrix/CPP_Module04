@@ -12,12 +12,6 @@ int main()
 	Animal p = Animal();
 	Animal a = p; //cp superficielle 
 	Animal c = Animal(p); //cp profonde
-
-	p.setType("kevin");
-	p.getType();
-	std::cout << p.getType() << "\n";
-	std::cout << p.getType() << "\n";
-	std::cout << p.getType() << "\n";
 	
 	delete j;//should not create a leak
 	delete i;
