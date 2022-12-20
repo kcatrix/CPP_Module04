@@ -1,31 +1,55 @@
+#include <iostream>
 #include "Animal.hpp"
-#include "WrongAnimal.hpp"
-#include "Cat.hpp"
-#include "WrongCat.hpp"
 #include "Dog.hpp"
+#include "Cat.hpp"
+
+void    testCreation( void )
+{
+    const Animal* j[10];
+    int i;
+
+    i = -1;
+    while (i++ < 9)
+    {
+        if (i % 2)
+            j[i] = new Cat();
+        else
+            j[i] = new Dog();
+        j[i]->makeSound();
+    }
+    i = -1;
+    while (i++ < 9)
+    {
+        delete j[i];
+    }
+    
+    system ("leaks brain");
+}
+
 
 int main()
 {
-	int	b = 4;
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	Animal p = Animal();
-	Animal a = p; //cp superficielle 
-	Animal c = Animal(p); //cp profonde
+    Dog jack;
+    Dog second;
+
+    jack.makeSound();
+    jack.addIdea("Eat bone");
+    jack.addIdea("Eat homework");
+    jack.addIdea("Eat carpet");
+    jack.getIdeas();
+    second = jack;
+    jack.addIdea("Eat WRONG");
+    second.getIdeas();
+	std::cout << "-------------------------------------------" << "\n";
+    jack.getIdeas();
 	
-	delete j;//should not create a leak
-	delete i;
-
-	Animal *k[b];
-
-	for (int a = 0; a != b; a++)
+	Dog basic;
 	{
-		if (a < b / 2)
-			k[a] = new Dog();
-		else
-			k[a] = new Cat();
+		Dog tmp = basic;
+		basic.addIdea("Eat carpe");
+		tmp.addIdea("Eat chicken");
+		tmp.getIdeas();
 	}
-	for (int a = 0; a != b; a++)
-		delete k[a];
-	return 0;
-}	
+	basic.getIdeas();
+    
+}

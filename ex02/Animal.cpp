@@ -1,42 +1,47 @@
 #include "Animal.hpp"
 
-Animal::Animal( void ) : type("Animal") 
+// Constructors
+Animal::Animal()
 {
-	std::cout << "Constructor called" << std::endl;
-	return;
+	_type = "";
+	std::cout << "\e[0;33mDefault Constructor called of Animal\e[0m" << std::endl;
 }
 
-Animal::Animal( Animal const & )
+Animal::Animal(const Animal &copy)
 {
-	return;
+	_type = copy.getType();
+	std::cout << "\e[0;33mCopy Constructor called of Animal\e[0m" << std::endl;
 }
 
-Animal & Animal::operator=( Animal const & cp ) 
+Animal::Animal(std::string type)
 {
-	this->type = cp.type;
+	_type = type;
+	std::cout << "\e[0;33mFields Constructor called of Animal\e[0m" << std::endl;
+}
+
+
+// Destructor
+Animal::~Animal()
+{
+	std::cout << "\e[0;31mDestructor called of Animal\e[0m" << std::endl;
+}
+
+
+// Operators
+Animal & Animal::operator=(const Animal &assign)
+{
+	_type = assign.getType();
 	return *this;
 }
 
-Animal::~Animal( void )
+
+// Getters / Setters
+std::string Animal::getType() const
 {
-	std::cout << "Destructor called" << std::endl;
-	return;
+	return _type;
 }
 
-std::string const Animal::getType( void ) const
+void	Animal::makeSound( void ) const
 {
-	return ( this->type );
+	std::cout << "No defined sound for animal "  + _type << std::endl;
 }
-
-void	Animal::setType( std::string type)
-{
-	this->type = type;
-	return;
-}
-
-void Animal::makeSound( void ) const
-{
-	std::cout << "Bonjour" << std::endl;
-}
-
-

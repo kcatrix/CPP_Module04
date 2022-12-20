@@ -1,32 +1,32 @@
+NAME = brain
+SOURCES = Animal.cpp \
+			Cat.cpp \
+			Dog.cpp \
+			Brain.cpp \
+			main.cpp
+
+OBJECTS = $(SOURCES:.cpp=.o)
+
 CC = g++
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-RM = rm -f
+all: $(NAME)
 
-CFLAGS = -Wall -Wextra -Werror -std=c++98 
+$(NAME): $(OBJECTS)
+	$(CC) -o $@ $^
 
-NAME = Animal 
-
-SRCDIR = ./srcs
-
-SRC = $(wildcard *.cpp)
-
-OBJ = $(SRC:.cpp=.o)
-
-all:
-	@$(MAKE) -j $(NAME)	
-
-$(NAME): $(SRC)
-	$(CC) $(CFLAGS) $(SRC) -o $(NAME)
-
-%.o : %.cpp
-	$(CC) -c $(CFLAGS) $(SRC) $< -o $@ 
+%.o: %.cpp
+	$(CC) -c $(CFLAGS) $<
 
 clean:
-	$(RM) $(OBJ)
-
+	$(RM) $(OBJECTS)
+	
 fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+lint:
+	cpplint --filter=-legal/copyright $(SOURCES)
+
+.PHONY: all clean fclean re lint

@@ -1,33 +1,52 @@
 #include "Dog.hpp"
+#include "Brain.hpp"
 
-Dog::Dog( void )
+// Constructors
+Dog::Dog() : Animal("Dog")
 {
-	std::cout << "Dog Constructor called" << std::endl;
-	this->type = "Dog";
-	this->_cervelet = new Brain ();
-	return;
+	std::cout << "\e[0;33mDefault Constructor called of Dog\e[0m" << std::endl;
+	_brain = new Brain();
 }
 
-Dog::Dog( Dog const & )
+Dog::Dog(const Dog &copy)
 {
-	return;
+	std::cout << "\e[0;33mCopy Constructor called of Dog\e[0m" << std::endl;
+	_brain = new Brain(*copy._brain);
 }
 
-Dog const & Dog::operator=( Dog const & cp )
+
+// Destructor
+Dog::~Dog()
 {
-	this->type = cp.type;
+	delete _brain;
+	std::cout << "\e[0;31mDestructor called of Dog\e[0m" << std::endl;
+}
+
+
+// Operators
+Dog & Dog::operator=(const Dog &assign)
+{
+	_brain = new Brain(*assign._brain);
+	_type = assign._type;
 	return *this;
-}
-
-Dog::~Dog( void )
-{
-	std::cout << "Destructor called" << std::endl;
-	delete this->_cervelet;
-	return;
 }
 
 void	Dog::makeSound( void ) const
 {
-	std::cout << "Waff" << std::endl;
-	return;
+	std::cout << "Bork! "  + _type << std::endl;
+}
+
+void	Dog::addIdea(std::string idea)
+{
+	_brain->ideas[_brain->idea_count] = idea;
+	_brain->idea_count++;
+}
+
+void	Dog::getIdeas( void )
+{
+	int i;
+
+	i = -1;
+	while (++i <= _brain->idea_count)
+		std::cout << _brain->ideas[i] << std::endl;
 }

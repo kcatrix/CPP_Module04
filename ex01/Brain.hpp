@@ -1,17 +1,27 @@
 #ifndef BRAIN_HPP
 # define BRAIN_HPP
-# include <string>
+
 # include <iostream>
+# include <string>
 
 class Brain
 {
-	public :
-		Brain( void );
-		Brain( Brain const & );
-		Brain & operator=( Brain const & egal );
-		~Brain( void );
+	public:
+		// Constructors
+		Brain();
+		Brain(const Brain &copy);
+		
+		// Destructor
+		~Brain();
+		
+		// Operators
+		Brain & operator=(const Brain &assign);
 
-		std::string *ideas;
+		std::string ideas[100];
+		int			idea_count;
+
+	private:
+		
 };
 
 #endif
